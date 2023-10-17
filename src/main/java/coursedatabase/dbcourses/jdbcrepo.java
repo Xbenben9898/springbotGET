@@ -1,10 +1,10 @@
 package coursedatabase.dbcourses;
 
+import coursedatabase.dbcourses.Courses.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,12 +13,11 @@ public class jdbcrepo {
 
 
     private String AddQuery =
+            "INSERT INTO `Courses`.`CoursesList` (`CourseName`, `CoursePrice`, `CourseDescription`) VALUES ( ?, ?, ? );";
 
-            """
-            INSERT INTO `Courses`.`CoursesList` (`CourseName`, `CoursePrice`, `CourseDescription`) VALUES ( 'docker course', 100, "virtualization" );
             
             
-            """;
+
 
 
     private String getall =
@@ -28,11 +27,19 @@ public class jdbcrepo {
             """;
 
 
-
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public void InsertCourse() {
-            jdbcTemplate.update(AddQuery);
+
+
+    // APIS
+
+
+    public boolean InsertCourse(String Coursename, int Price, String CourseDescription) {
+            int rows = jdbcTemplate.update(AddQuery, Coursename, Price,CourseDescription );
+            if (rows > 0)
+               return true;
+            else
+                return false;
     }
 
 

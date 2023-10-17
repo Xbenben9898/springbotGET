@@ -1,4 +1,4 @@
-package coursedatabase.dbcourses;
+package coursedatabase.dbcourses.Courses;
 
 public class Course {
 
